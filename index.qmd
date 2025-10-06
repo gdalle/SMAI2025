@@ -1,0 +1,288 @@
+---
+title: "Des mathématiques pour faire rouler les trains"
+author: "Guillaume Dalle"
+date: "09/10/2025"
+institute: Cycle SMAI & Musée des arts et métiers
+format:
+  revealjs:
+    toc: true
+    toc-depth: 1
+    toc-title: "Table des matières"
+    width: 1280
+    height: 720
+    slide-number: true
+    title-slide-attributes:
+      data-background-image: img/logos/enpc.png, img/logos/lvmt.png
+      data-background-size: 25%, 25%
+      data-background-position: 20% 98%, 80% 95%
+engine: julia
+bibliography: SMAI.bib
+css: style.css
+---
+
+# Introduction
+
+## Mon parcours
+
+- Lycée scientifique
+- Classe préparatoire maths-physique
+- École d'ingénieurs
+- Thèse (_comment prédire et éviter les retards de trains ?_)
+- Postdoctorat (_comment analyser des réseaux complexes ?_)
+- Chercheur (_comment mutualiser les livraisons de marchandises ?_)
+
+## La recherche, c'est quoi ?
+
+Plein de métiers différents à la fois !
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+- Lire
+- Réfléchir
+- Coder
+
+:::
+
+::: {.column width="33%"}
+
+- Écrire
+- Présenter
+- Enseigner
+
+:::
+
+::: {.column width="33%"}
+
+- Encadrer
+- Organiser
+- Financer
+
+:::
+
+::::
+
+## La recherche en transports
+
+De multiples disciplines impliquées :
+
+:::: {.columns}
+
+::: {.column}
+- Ingénierie
+- Économie
+- Géographie
+:::
+
+::: {.column}
+- Sociologie
+- Informatique
+- Mathématiques ?
+:::
+
+::::
+
+## La planification ferroviaire
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+![Étapes du processus [@schlechteRailwayTrackAllocation2012]](img/papers/planning.png){.lightbox}
+
+:::
+
+::: {.column width="60%"}
+
+Acteurs impliqués :
+
+- Entreprises ferroviaires (RU)
+- Gestionnaire d'infrastructure (IM)
+
+Échelles temporelles :
+
+- Stratégique : A-5
+- Tactique : A-1 à M-1
+- Opérationnelle : M-1 à J-1
+
+:::
+
+::::
+
+## Focus sur l'allocation d'itinéraires
+
+But : amener chaque train de son point de départ à son point d'arrivée.
+
+![Le challenge Flatland (<https://flatland-association.github.io/>)](img/flatland/animation.gif){.lightbox}
+
+Il s'agit d'un problème d'optimisation combinatoire.
+
+# Notions d'optimisation
+
+## Est-ce de l'IA ?
+
+L'Intelligence Artificielle désigne un ensemble d'algorithmes permettant d'effectuer des tâches typiquement attribuées aux humains.
+
+::::: {.columns}
+
+:::: {.column width="33%"}
+::: {.callout-note}
+### Prédiction
+
+Anticiper un phénomène inconnu ou futur.
+:::
+![](img/apps/translate.png){height=300 fig-align="center"}
+::::
+
+:::: {.column width="33%"}
+::: {.callout-tip}
+### Génération
+
+Produire des médias à partir de consignes et d'exemples.
+:::
+![](img/apps/chatgpt.png){height=300 fig-align="center"}
+::::
+
+:::: {.column width="33%"}
+::: {.callout-warning}
+### Décision
+
+Planifier l'usage de ressources limitées.
+:::
+![](img/apps/maps.png){height=300 fig-align="center"}
+::::
+
+:::::
+
+## Modéliser la réalité
+
+:::: {.columns}
+Pour que l'ordinateur aide à la décision, il faut expliciter le problème :
+
+::: {.column width="25%"}
+- Données
+:::
+::: {.column width="25%"}
+- Variables
+:::
+::: {.column width="25%"}
+- Contraintes
+:::
+::: {.column width="25%"}
+- Objectif
+:::
+
+::::
+
+::: {.callout-important}
+### Simplification nécessaire
+
+"Tous les modèles sont faux, mais certains sont utiles." (George Box)
+:::
+
+## Données du problème
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+- Topographie du réseau : un graphe $G = (N, A)$ composé de
+  - noeuds $n \in N$
+  - arêtes $a = (n, n') \in A$
+- Pour chaque voyage $v$ :
+  - Station de depart $s_v^d$ et d'arrivée $s_v^a$
+  - Heure de départ $h_v^d$ et d'arrivée $h_v^a$ théoriques
+- Durée de la journée $T$
+
+:::
+
+::: {.column width="40%"}
+![Réseau Flatland représenté comme un graphe](img/flatland/graph.png){.lightbox}
+:::
+
+::::
+
+## Variables de décision
+
+Itinéraire de chaque voyage : suite de noeuds $(n_v^1, ..., n_v^T)$
+
+Heures d'arrivée et de départ ? Déterminées par les contraintes.
+
+## Contraintes à respecter
+
+- Chaque voyage existe sur le réseau : $(n_v^t, n_v^{t+1}) \in A$
+- Chaque voyage part de sa station de départ : $n_v^1 = s_v^d$
+- Chaque voyage arrive à sa station d'arrivée : $n_v^T = s_v^a$
+- Chaque voyage attend son heure de départ : $n_v^1 = n_v^2 = \dots = n_v^{h_v^d}$
+- Deux voyages n'occupent jamais le même noeud en même temps : $n_v^t \neq n_{v'}^t$
+
+## Fonction objectif
+
+Retard d'un voyage :
+$$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \min \{t : n_v^t = s_v^a\} - h_v^a$$
+
+"Coût" à minimiser : plusieurs choix possibles
+
+:::: {.columns}
+::: {.column}
+- Retard total $\sum_v r_v$
+:::
+::: {.column}
+- Retard maximal $\max_v r_v$
+:::
+::::
+
+# Itinéraire pour un seul train
+
+## Beaucoup de chemins possibles
+
+
+
+## Différentes options
+
+[Clique ici](https://tobinatore.github.io/algovis/pathfinding.html) pour les visualiser :
+
+- Recherche en largeur
+- Recherche en profondeur
+- Algorithme A*
+
+## Complexité des algorithmes
+
+# Itinéraires pour plusieurs trains
+
+## Une explosion des possibilités
+
+## Recherche arborescente : c'est trop long !
+
+## Planification priorisée
+
+## Recherche à voisinages larges
+
+
+# Le rôle des benchmarks
+
+## Simplification 1 : de la réalité à Flatland
+
+## Simplification 2 : de Flatland au MAPF
+
+## Le benchmark MAPF
+
+## Le challenge Flatland
+
+## Gagner le challenge Flatland
+
+# Pour aller plus loin
+
+## Existe-t-il toujours un plus court chemin ?
+
+## Graphes de grande taille
+
+## Temps de trajet incertains
+
+## Références
+
+::: {#refs}
+:::
+
+## Des questions ?
