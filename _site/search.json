@@ -1,0 +1,198 @@
+[
+  {
+    "objectID": "index.html#mon-parcours",
+    "href": "index.html#mon-parcours",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Mon parcours",
+    "text": "Mon parcours\n\nLycée scientifique\nClasse préparatoire maths-physique\nÉcole d’ingénieurs\nThèse (comment prédire et éviter les retards de trains ?)\nPostdoctorat (comment analyser des réseaux complexes ?)\nChercheur (comment mutualiser les livraisons de marchandises ?)"
+  },
+  {
+    "objectID": "index.html#la-recherche-cest-quoi",
+    "href": "index.html#la-recherche-cest-quoi",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "La recherche, c’est quoi ?",
+    "text": "La recherche, c’est quoi ?\nPlein de métiers différents à la fois !\n\n\n\nLire\nRéfléchir\nCoder\n\n\n\nÉcrire\nPrésenter\nEnseigner\n\n\n\nEncadrer\nOrganiser\nFinancer"
+  },
+  {
+    "objectID": "index.html#la-recherche-en-transports",
+    "href": "index.html#la-recherche-en-transports",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "La recherche en transports",
+    "text": "La recherche en transports\nDe multiples disciplines impliquées :\n\n\n\nIngénierie\nÉconomie\nGéographie\n\n\n\nSociologie\nInformatique\nMathématiques ?"
+  },
+  {
+    "objectID": "index.html#la-planification-ferroviaire",
+    "href": "index.html#la-planification-ferroviaire",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "La planification ferroviaire",
+    "text": "La planification ferroviaire\n\n\n\n\n\nÉtapes du processus (Schlechte 2012)\n\n\n\nActeurs impliqués :\n\nEntreprises ferroviaires (RU)\nGestionnaire d’infrastructure (IM)\n\nÉchelles temporelles :\n\nStratégique : A-5\nTactique : A-1 à M-1\nOpérationnelle : M-1 à J-1"
+  },
+  {
+    "objectID": "index.html#focus-sur-lallocation-ditinéraires",
+    "href": "index.html#focus-sur-lallocation-ditinéraires",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Focus sur l’allocation d’itinéraires",
+    "text": "Focus sur l’allocation d’itinéraires\nBut : amener chaque train de son point de départ à son point d’arrivée.\n\n\n\nLe challenge Flatland (https://flatland-association.github.io/)\n\n\nIl s’agit d’un problème d’optimisation combinatoire."
+  },
+  {
+    "objectID": "index.html#est-ce-de-lia",
+    "href": "index.html#est-ce-de-lia",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Est-ce de l’IA ?",
+    "text": "Est-ce de l’IA ?\nL’Intelligence Artificielle désigne un ensemble d’algorithmes permettant d’effectuer des tâches typiquement attribuées aux humains.\n\n\n\n\n\n\n\n\nPrédiction\n\n\nAnticiper un phénomène inconnu ou futur.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGénération\n\n\nProduire des médias à partir de consignes et d’exemples.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDécision\n\n\nPlanifier l’usage de ressources limitées."
+  },
+  {
+    "objectID": "index.html#modéliser-la-réalité",
+    "href": "index.html#modéliser-la-réalité",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Modéliser la réalité",
+    "text": "Modéliser la réalité\n\nPour que l’ordinateur aide à la décision, il faut expliciter le problème :\n\nDonnées\n\n\n\nVariables\n\n\n\nContraintes\n\n\n\nObjectif\n\n\n\n\n\n\n\n\nSimplification nécessaire\n\n\n“Tous les modèles sont faux, mais certains sont utiles.” (George Box)"
+  },
+  {
+    "objectID": "index.html#données-du-problème",
+    "href": "index.html#données-du-problème",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Données du problème",
+    "text": "Données du problème\n\n\n\nTopographie du réseau : un graphe \\(G = (N, A)\\) composé de\n\nnoeuds \\(n \\in N\\)\narêtes \\(a = (n, n') \\in A\\)\n\nPour chaque voyage \\(v\\) :\n\nStation de depart \\(s_v^d\\) et d’arrivée \\(s_v^a\\)\nHeure de départ \\(h_v^d\\) et d’arrivée \\(h_v^a\\) théoriques\n\nDurée de la journée \\(T\\)\n\n\n\n\n\nRéseau Flatland représenté comme un graphe"
+  },
+  {
+    "objectID": "index.html#variables-de-décision",
+    "href": "index.html#variables-de-décision",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Variables de décision",
+    "text": "Variables de décision\nItinéraire de chaque voyage : suite de noeuds \\((n_v^1, ..., n_v^T)\\)\nHeures d’arrivée et de départ ? Déterminées par les contraintes."
+  },
+  {
+    "objectID": "index.html#contraintes-à-respecter",
+    "href": "index.html#contraintes-à-respecter",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Contraintes à respecter",
+    "text": "Contraintes à respecter\n\nChaque voyage existe sur le réseau : \\((n_v^t, n_v^{t+1}) \\in A\\)\nChaque voyage part de sa station de départ : \\(n_v^1 = s_v^d\\)\nChaque voyage arrive à sa station d’arrivée : \\(n_v^T = s_v^a\\)\nChaque voyage attend son heure de départ : \\(n_v^1 = n_v^2 = \\dots = n_v^{h_v^d}\\)\nDeux voyages n’occupent jamais le même noeud en même temps : \\(n_v^t \\neq n_{v'}^t\\)"
+  },
+  {
+    "objectID": "index.html#fonction-objectif",
+    "href": "index.html#fonction-objectif",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Fonction objectif",
+    "text": "Fonction objectif\nRetard d’un voyage : \\[r_v = \\max(0, \\delta_v) \\quad \\text{où} \\quad \\delta_v = \\min \\{t : n_v^t = s_v^a\\} - h_v^a\\]\n“Coût” à minimiser : plusieurs choix possibles\n\n\n\nRetard total \\(\\sum_v r_v\\)\n\n\n\nRetard maximal \\(\\max_v r_v\\)"
+  },
+  {
+    "objectID": "index.html#beaucoup-de-chemins-possibles",
+    "href": "index.html#beaucoup-de-chemins-possibles",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Beaucoup de chemins possibles",
+    "text": "Beaucoup de chemins possibles"
+  },
+  {
+    "objectID": "index.html#différentes-options",
+    "href": "index.html#différentes-options",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Différentes options",
+    "text": "Différentes options\nClique ici pour les visualiser :\n\nRecherche en largeur\nRecherche en profondeur\nAlgorithme A*"
+  },
+  {
+    "objectID": "index.html#complexité-des-algorithmes",
+    "href": "index.html#complexité-des-algorithmes",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Complexité des algorithmes",
+    "text": "Complexité des algorithmes"
+  },
+  {
+    "objectID": "index.html#une-explosion-des-possibilités",
+    "href": "index.html#une-explosion-des-possibilités",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Une explosion des possibilités",
+    "text": "Une explosion des possibilités"
+  },
+  {
+    "objectID": "index.html#recherche-arborescente-cest-trop-long",
+    "href": "index.html#recherche-arborescente-cest-trop-long",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Recherche arborescente : c’est trop long !",
+    "text": "Recherche arborescente : c’est trop long !"
+  },
+  {
+    "objectID": "index.html#planification-priorisée",
+    "href": "index.html#planification-priorisée",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Planification priorisée",
+    "text": "Planification priorisée"
+  },
+  {
+    "objectID": "index.html#recherche-à-voisinages-larges",
+    "href": "index.html#recherche-à-voisinages-larges",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Recherche à voisinages larges",
+    "text": "Recherche à voisinages larges"
+  },
+  {
+    "objectID": "index.html#simplification-1-de-la-réalité-à-flatland",
+    "href": "index.html#simplification-1-de-la-réalité-à-flatland",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Simplification 1 : de la réalité à Flatland",
+    "text": "Simplification 1 : de la réalité à Flatland"
+  },
+  {
+    "objectID": "index.html#simplification-2-de-flatland-au-mapf",
+    "href": "index.html#simplification-2-de-flatland-au-mapf",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Simplification 2 : de Flatland au MAPF",
+    "text": "Simplification 2 : de Flatland au MAPF"
+  },
+  {
+    "objectID": "index.html#le-benchmark-mapf",
+    "href": "index.html#le-benchmark-mapf",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Le benchmark MAPF",
+    "text": "Le benchmark MAPF"
+  },
+  {
+    "objectID": "index.html#le-challenge-flatland",
+    "href": "index.html#le-challenge-flatland",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Le challenge Flatland",
+    "text": "Le challenge Flatland"
+  },
+  {
+    "objectID": "index.html#gagner-le-challenge-flatland",
+    "href": "index.html#gagner-le-challenge-flatland",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Gagner le challenge Flatland",
+    "text": "Gagner le challenge Flatland"
+  },
+  {
+    "objectID": "index.html#existe-t-il-toujours-un-plus-court-chemin",
+    "href": "index.html#existe-t-il-toujours-un-plus-court-chemin",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Existe-t-il toujours un plus court chemin ?",
+    "text": "Existe-t-il toujours un plus court chemin ?"
+  },
+  {
+    "objectID": "index.html#graphes-de-grande-taille",
+    "href": "index.html#graphes-de-grande-taille",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Graphes de grande taille",
+    "text": "Graphes de grande taille"
+  },
+  {
+    "objectID": "index.html#temps-de-trajet-incertains",
+    "href": "index.html#temps-de-trajet-incertains",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Temps de trajet incertains",
+    "text": "Temps de trajet incertains"
+  },
+  {
+    "objectID": "index.html#références",
+    "href": "index.html#références",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Références",
+    "text": "Références\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489."
+  },
+  {
+    "objectID": "index.html#des-questions",
+    "href": "index.html#des-questions",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Des questions ?",
+    "text": "Des questions ?"
+  }
+]
