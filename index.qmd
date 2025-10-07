@@ -14,23 +14,15 @@ format:
     code-fold: true
     title-slide-attributes:
       data-background-image: img/logos/enpc.png
-      data-background-size: 30%
+      data-background-size: 25%
       data-background-position: 50% 98%
+from: markdown+emoji
 engine: julia
 bibliography: SMAI.bib
 css: style.css
 ---
 
 # Introduction
-
-## Mon parcours
-
-- Lycée scientifique
-- Classe préparatoire maths-physique
-- École d'ingénieurs
-- Thèse (_comment prédire et éviter les retards de trains ?_)
-- Postdoctorat (_comment analyser des réseaux complexes ?_)
-- Chercheur (_comment mutualiser les livraisons de marchandises ?_)
 
 ## La recherche, c'est quoi ?
 
@@ -40,25 +32,25 @@ Plein de métiers différents à la fois !
 
 ::: {.column width="33%"}
 
-- Lire
-- Réfléchir
-- Coder
+- :book: Lire
+- :thinking: Réfléchir
+- :keyboard: Coder
 
 :::
 
 ::: {.column width="33%"}
 
-- Écrire
-- Présenter
-- Enseigner
+- :scroll: Écrire
+- :microphone: Présenter
+- :teacher: Enseigner
 
 :::
 
 ::: {.column width="33%"}
 
-- Encadrer
-- Organiser
-- Financer
+- :student: Encadrer
+- :open_file_folder: Organiser
+- :dollar: Financer
 
 :::
 
@@ -66,23 +58,32 @@ Plein de métiers différents à la fois !
 
 ## La recherche en transports
 
-De multiples disciplines impliquées :
+De multiples disciplines mobilisées :
 
 :::: {.columns}
 
 ::: {.column}
-- Ingénierie
-- Économie
-- Géographie
+- :factory: Ingénierie
+- :money_mouth_face: Économie
+- :world_map: Géographie
 :::
 
 ::: {.column}
-- Sociologie
-- Informatique
-- Mathématiques ?
+- :people_holding_hands: Sociologie
+- :computer: Informatique
+- :heavy_plus_sign: Mathématiques ?
 :::
 
 ::::
+
+## Mon parcours
+
+1. Lycée scientifique
+1. Classe préparatoire maths-physique
+1. École d'ingénieurs
+1. Thèse (_comment prédire et éviter les retards de trains ?_)
+1. Postdoctorat (_comment analyser des réseaux complexes ?_)
+1. Chercheur (_comment mutualiser les livraisons de marchandises ?_)
 
 ## La planification ferroviaire
 
@@ -98,14 +99,14 @@ De multiples disciplines impliquées :
 
 Acteurs impliqués :
 
-- Entreprises ferroviaires (RU)
-- Gestionnaire d'infrastructure (IM)
+- :bullettrain_side: Entreprises ferroviaires (RU)
+- :railway_track: Gestionnaire d'infrastructure (IM)
 
 Échelles temporelles :
 
-- Stratégique : A-5
-- Tactique : A-1 à M-1
-- Opérationnelle : M-1 à J-1
+- :older_man: Stratégique : A-5
+- :calendar: Tactique : A-1 à M-1
+- :watch: Opérationnelle : M-1 à J-1
 
 :::
 
@@ -115,9 +116,9 @@ Acteurs impliqués :
 
 But : amener chaque train de son point de départ à son point d'arrivée.
 
-![Le challenge Flatland (<https://flatland-association.github.io/>)](img/flatland/animation.gif){.lightbox}
+![Le challenge Flatland (<https://flatland-association.github.io/>)](img/flatland/animation.gif){.lightbox width="70%"}
 
-Il s'agit d'un problème d'**optimisation** sur un **graphe**, de complexité **exponentielle**.
+Problème d'**optimisation** sur un **graphe**, de **complexité** exponentielle.
 
 # Notions de théorie des graphes
 
@@ -127,20 +128,30 @@ Il s'agit d'un problème d'**optimisation** sur un **graphe**, de complexité **
 ::: {.column width="60%"}
 Un graphe $G = (N, A)$ est composé
 
-- d'un ensemble de noeuds $u \in N$
-- d'un ensemble d'arêtes $a = (u, v) \in A$
+- d'un ensemble de noeuds $i \in N$
+- d'un ensemble d'arêtes $a = (i, j) \in A$
 :::
 ::: {.column width="40%"}
 ```{julia}
-using Graphs, CairoMakie, GraphMakie
-g = SimpleGraph(10, 20)
-fig = Figure()
-ax = Axis(fig[1, 1])
-pl = graphplot!(ax, g, ilabels=collect(1:nv(g)), ilabels_fontsize=40)
-hidedecorations!(ax)
-hidespines!(ax)
-fig
+using Graphs, CairoMakie, GraphMakie, NetworkLayout, StableRNGs
+
+function plot_graph(g; layout=Spring(), margin=(0.1, 0.1, 0.1, 0.1))
+    pos = layout(g)
+    x0, x1 = minimum(map(x -> x[1], pos)), maximum(map(x -> x[1], pos))
+    y0, y1 = minimum(map(x -> x[2], pos)), maximum(map(x -> x[2], pos))
+    fig = Figure()
+    ax = Axis(fig[1, 1])
+    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), ilabels_fontsize=40)
+    xlims!(ax, x0 - margin[4] * (x1 - x0), x1 + margin[2] * (x1 - x0))
+    ylims!(ax, y0 - margin[1] * (y1 - y0), y1 + margin[3] * (y1 - y0))
+    hidedecorations!(ax)
+    hidespines!(ax)
+    return fig
+end
+
+plot_graph(SimpleGraph(10, 20; rng=StableRNG(0)))
 ```
+
 :::
 ::::
 
@@ -150,27 +161,23 @@ Permet de représenter des connexions entre différentes entités.
 
 Le premier problème de théorie des graphes fut posé par Euler.
 
-![Peut-on traverser tous ces ponts une fois chacun sans revenir sur ses pas ?](img/graphs/konigsberg.png)
-
-:::: {style="font-size: 40%;"}
-Image by Twotwos - Own work based on: Konigsberg bridges.png. This file was derived from: Image-Koenigsberg, Map by Merian-Erben 1652.jpg, CC BY-SA 4.0, <https://commons.wikimedia.org/w/index.php?curid=175193733>
-::::
+![Peut-on traverser tous ces ponts une fois chacun sans revenir sur ses pas ?](img/graphs/konigsberg.png){.lightbox}
 
 ## Applications
 
 :::: {.columns}
 ::: {.column width="33%"}
-- Réseaux sociaux
+- Communications
 :::
 ::: {.column width="33%"}
-- Transports
+- Réseaux sociaux
 :::
 ::: {.column width="33%"}
 - Molécules / protéines
 :::
 ::::
 
-![Structure de communauté dans un graphe [@abbeCommunityDetectionStochastic2018]](img/graphs/community.png)
+![Structure de communauté dans un graphe [@abbeCommunityDetectionStochastic2018]](img/graphs/community.png){.lightbox}
 
 ## Le réseau ferroviaire comme graphe
 
@@ -182,7 +189,7 @@ Un noeud ne correspond pas toujours à une localisation physique !
 
 ## Est-ce de l'IA ?
 
-L'Intelligence Artificielle désigne un ensemble d'algorithmes permettant d'effectuer des tâches typiquement attribuées aux humains.
+L'Intelligence Artificielle désigne un ensemble d'algorithmes permettant d'automatiser des tâches typiquement attribuées aux humains.
 
 ::::: {.columns}
 
@@ -245,18 +252,21 @@ Pour que l'ordinateur aide à la décision, il faut expliciter le problème :
 
 :::: {.columns}
 
-::: {.column width="55%"}
+::: {.column width="35%"}
 
 - Topographie du réseau : un graphe dirigé $G = (N, A)$
-- Pour chaque voyage $v$ :
-  - Station de depart $s_v^d$ et d'arrivée $s_v^a$
-  - Heure de départ $h_v^d$ et d'arrivée $h_v^a$ théoriques
+
 - Durée de la journée $T$
 
 :::
 
-::: {.column width="45%"}
-![Environnement Flatland [@mohantyFlatlandRLMultiAgentReinforcement2020]](img/flatland/env1.png){.lightbox}
+::: {.column width="5%"}
+:::
+
+::: {.column width="60%"}
+- Ensemble $V$ de voyages, chaque voyage $v \in V$ possédant :
+  - Station de depart $s_v^d$ et d'arrivée $s_v^a$
+  - Heure de départ $h_v^d$ et d'arrivée $h_v^a$ théoriques
 :::
 
 ::::
@@ -267,7 +277,7 @@ Itinéraire de chaque voyage : suite de noeuds $(n_v^1, ..., n_v^T)$
 
 Heures d'arrivée et de départ ? Déterminées par les contraintes.
 
-![Décider ce que fait chaque train à chaque intersection [@laurentFlatlandCompetition20202021]](img/flatland/flatland_env_and_transitions.png)
+![Décider ce que fait chaque train à chaque intersection [@laurentFlatlandCompetition20202021]](img/flatland/flatland_env_and_transitions.png){.lightbox}
 
 ## Contraintes à respecter
 
@@ -293,65 +303,307 @@ $$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \min \{t : n_v^t = s
 :::
 ::::
 
+## Résolution
+
+Les problèmes d'optimisation réalistes sont résolus par des algorithmes, implémentés sous forme de code informatique.
+
+Critères d'évaluation :
+
+:::: {.columns}
+::: {.column width="50%"}
+- :white_check_mark: Terminaison
+- :point_right: Correction
+:::
+::: {.column width="50%"}
+- :1st_place_medal: Optimalité
+- :runner: Complexité
+:::
+::::
+
 # Notions de complexité
 
-## Critères d'analyse d'un algorithme
+## Taille de l'entrée & efficacité
 
-- Terminaison
-- Correction
-- Optimalité
-- Complexité en temps
-- Complexité en espace
+:::: {.columns}
+::: {.column width="60%"}
+Nos données d'entrée se mesurent par : 
+
+- le nombre de noeuds du graphe $N$
+- le nombre d'arêtes du graphe $A$
+- le nombre de voyages $V$
+:::
+::: {.column width="40%"}
+L'efficacité d'un algorithme se mesure par :
+
+- le temps de calcul
+- la mémoire utilisée
+:::
+::::
+
+Plus l'entrée est grande, plus l'algorithme utilise de ressources.
 
 ## Polynomial vs exponentiel
 
+On mesure la complexité en opérations arithmétiques ($+$, $-$, $\times$, $\div$).
+Supposons que chacune prend $1$ nanoseconde.
+
+| Complexité | $N = 50$ | $N = 100$ | $N = 200$ 
+|---|---|---|---|---|
+| "linéaire" ($N$) | 50 ns | 0.1 µs | 0.2 µs
+| "quadratique" ($N^2$) | 2.5 µs | 10 µs | 40 ms |
+| "cubique" ($N^3$) | 0.1 ms | 1 ms | 8 ms |
+| "exponentielle" ($2^N$) | 13 jours | 10$^{13}$ ans | ? |
+
 ## Exemples
+
+| Problème | Complexité | Algorithme |
+|---|---|---|
+| Trouver le plus petit nombre dans une liste | $N$ | Parcours de liste |
+| Trier une liste de nombres | $N \log N$ | Tri fusion |
+| Trouver un itinéraire dans un graphe | $N \log N$ | Dijkstra / A* |
+| Trouver plusieurs itinéraires compatibles dans un graphe | exponentielle | ? |
 
 # Le rôle des benchmarks
 
 ## Pourquoi se comparer ?
 
+:::: {.columns}
+::: {.column width="35%"}
+On sait résoudre des problèmes exponentiels, mais pas toujours exactement.
+
+Benchmark = instances de test standardisées pour évaluer les différentes approches.
+:::
+::: {.column width="65%"}
+![Différentes méthodes de résolution pour Flatland [@laurentFlatlandCompetition20202021]](img/flatland/flatland_score_plot_v3.png){.lightbox}
+:::
+::::
+
+Nécessite de trouver des points communs entre différents problèmes.
+
 ## Simplification 1 : de la réalité à Flatland
+
+:::: {.columns}
+::: {.column width="60%"}
+Flatland est un problème plus simple que la réalité :
+
+- Réseau assimilé à une grille
+- Commande centralisée
+- Vitesse constante
+- Pas de stations intermédiaires
+- Pas de mécanisme de sécurité
+
+:::
+::: {.column width="40%"}
+![Un paysage suisse bucolique (<https://flatland-association.github.io>)](img/flatland/Flatland_Preview.svg){.lightbox}
+:::
+::::
 
 ## Simplification 2 : de Flatland au MAPF
 
+:::: {.columns}
+::: {.column width="60%"}
+Le _Multi-Agent PathFinding_ est un problème encore plus simple que Flatland :
+
+- Cellules plus simples (vides ou obstacles)
+- Les agents sont ponctuels
+- Pas d'accidents aléatoires
+
+Très utile pour développer de nouveaux algorithmes !
+:::
+::: {.column width="40%"}
+![Une instance de MAPF à deux agents [@gaoReviewGraphbasedMultiagent2024]](img/mapf/simple.png){.lightbox}
+:::
+::::
+
 ## Le benchmark MAPF
 
-## Le challenge Flatland
+Instances de tailles et natures variées [@sternMultiAgentPathfindingDefinitions2019].
+
+:::: {.columns}
+::: {.column width="20%"}
+![](img/mapf/Berlin_1_256.svg)
+Villes
+:::
+::: {.column width="20%"}
+![](img/mapf/brc202d.svg)
+Jeux vidéo
+:::
+::: {.column width="20%"}
+![](img/mapf/maze-32-32-2.svg)
+Labyrinthes
+:::
+::: {.column width="20%"}
+![](img/mapf/room-64-64-8.svg)
+Pièces
+:::
+::: {.column width="20%"}
+![](img/mapf/random-32-32-20.svg)
+Aléatoire
+:::
+::::
 
 ## Comment gagner le challenge Flatland ?
 
+:::: {.columns}
+::: {.column width="50%"}
+Avec des techniques éprouvées pour un problème plus simple (MAPF) :
+
+1. Recherche d'itinéraire efficace pour un seul trains
+2. Gestion des conflits pour plusieurs trains
+
+Découvrons la stratégie de l'équipe gagnante !
+:::
+::: {.column width="50%"}
+![Les deadlocks sont un défi majeur [@liScalableRailPlanning2021]](img/flatland/deadlocks.png){.lightbox}
+:::
+::::
+
 # Itinéraire pour un seul train
-
-## Différentes options
-
-[Clique ici](https://tobinatore.github.io/algovis/pathfinding.html) pour les visualiser :
-
-- Recherche en largeur
-- Recherche en profondeur
-- Algorithme A*
 
 ## Recherche en largeur : exploration naïve
 
+Explorer le graphe par cercles concentriques autour du point de départ.
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+::: {.callout-tip}
+### Avantage
+
+Très facile à appliquer
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.callout-warning}
+### Défaut
+
+Exploration à l'aveugle
+:::
+::::
+
+:::::
+
+[Lien de visualisation](https://tobinatore.github.io/algovis/pathfinding.html)
+
 ## Algorithme A* : exploration guidée
+
+Prioriser les sommets selon la somme de deux quantités :
+
+- distance exacte depuis l'origine
+- distance _approximative_ jusqu'à la destination
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+::: {.callout-tip}
+### Avantage
+
+Évite de se disperser
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.callout-warning}
+### Défaut
+
+Nécessite une bonne "heuristique"
+:::
+::::
+
+:::::
+
+[Lien de visualisation](https://tobinatore.github.io/algovis/pathfinding.html)
+
+## Existe-t-il toujours un plus court chemin ?
+
+:::: {.columns}
+::: {.column width="60%"}
+- Pas si le graphe est déconnecté
+- Pas si le graphe a des cycles de poids négatif
+:::
+::: {.column width="40%"}
+```{julia}
+g = blockdiag(complete_graph(3), complete_graph(3))
+plot_graph(g)
+```
+:::
+::::
 
 # Itinéraires pour plusieurs trains
 
 ## Une explosion des possibilités
 
+Idéalement, on voudrait trouver les itinéraires pour chaque agent en parallèle.
+
+Plus les agents sont nombreux, plus on dévie du chemin optimal.
+
+[Lien de visualisation](https://tracker.pathfinding.ai/instances?mapId=63761f265d814f08ecdbf3c2&reason=unknown&scenId=63761f275d814f08ecdbfa03&instanceId=637636c25d814f08ecf24266&solutionId=64113b7aa77d79716569426c&source=submitted).
+
 ## Recherche arborescente : c'est trop long !
+
+Idée (_Conflict-Based Search_) : dès qu'on rencontre un conflit, explorer les deux possibilités engendrées.
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+![Il faut explorer toutes les feuilles de l'arbre [@wangWherePathsCollide2025]](img/mapf/cbs.png){.lightbox}
+::::
+
+:::: {.column width="40%"}
+::: {.callout-tip}
+### Avantage
+
+Trouve une solution optimale
+:::
+::: {.callout-warning}
+### Défaut
+
+Complexité exponentielle
+:::
+::::
+
+:::::
 
 ## Planification priorisée
 
+Idée : planifier les agents un par un, et les considérer comme obstacles figés ensuite.
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+![L'ordre de priorité est important [@wangWherePathsCollide2025]](img/mapf/prioritized.png){.lightbox}
+::::
+
+:::: {.column width="40%"}
+::: {.callout-tip}
+### Avantage
+
+Très rapide à exécuter
+:::
+::: {.callout-warning}
+### Défaut
+
+Ne trouve pas forcément de solution (optimale)
+:::
+::::
+
+:::::
+
 ## Recherche à voisinages larges
+
+Quand on a trouvé une solution, on peut l'améliorer itérativement :
+
+- Choisir un ensemble d'agents
+- Oublier leurs chemins
+- Reconstruire de nouveaux chemins en gardant les autres fixés
+- Voir si on a trouvé mieux
 
 # Pour aller plus loin
 
-## Existe-t-il toujours un plus court chemin ?
+## Représentation des graphes en mémoire
 
-## Graphes de grande taille
-
-## Temps de trajet incertains
+## Complexité théorique ou pratique
 
 ## Références
 
