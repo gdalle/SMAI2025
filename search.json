@@ -32,7 +32,35 @@
     "href": "index.html#focus-sur-lallocation-ditinéraires",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Focus sur l’allocation d’itinéraires",
-    "text": "Focus sur l’allocation d’itinéraires\nBut : amener chaque train de son point de départ à son point d’arrivée.\n\n\n\nLe challenge Flatland (https://flatland-association.github.io/)\n\n\nIl s’agit d’un problème d’optimisation combinatoire."
+    "text": "Focus sur l’allocation d’itinéraires\nBut : amener chaque train de son point de départ à son point d’arrivée.\n\n\n\nLe challenge Flatland (https://flatland-association.github.io/)\n\n\nIl s’agit d’un problème d’optimisation sur un graphe, de complexité exponentielle."
+  },
+  {
+    "objectID": "index.html#définition",
+    "href": "index.html#définition",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Définition",
+    "text": "Définition\n\n\nUn graphe \\(G = (N, A)\\) est composé\n\nd’un ensemble de noeuds \\(u \\in N\\)\nd’un ensemble d’arêtes \\(a = (u, v) \\in A\\)\n\n\n\n\n\n\n\n\nPermet de représenter des connexions entre différentes entités."
+  },
+  {
+    "objectID": "index.html#origines-les-7-ponts-de-königsberg",
+    "href": "index.html#origines-les-7-ponts-de-königsberg",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Origines : les 7 ponts de Königsberg",
+    "text": "Origines : les 7 ponts de Königsberg\nLe premier problème de théorie des graphes fut posé par Euler.\n\nPeut-on traverser tous ces ponts une fois chacun sans revenir sur ses pas ?\nImage by Twotwos - Own work based on: Konigsberg bridges.png. This file was derived from: Image-Koenigsberg, Map by Merian-Erben 1652.jpg, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=175193733"
+  },
+  {
+    "objectID": "index.html#applications",
+    "href": "index.html#applications",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Applications",
+    "text": "Applications\n\n\n\nRéseaux sociaux\n\n\n\nTransports\n\n\n\nMolécules / protéines\n\n\n\nStructure de communauté dans un graphe (Abbe 2018)"
+  },
+  {
+    "objectID": "index.html#le-réseau-ferroviaire-comme-graphe",
+    "href": "index.html#le-réseau-ferroviaire-comme-graphe",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Le réseau ferroviaire comme graphe",
+    "text": "Le réseau ferroviaire comme graphe\nUn noeud ne correspond pas toujours à une localisation physique !\n\n\n\nReprésentation graphique d’un réseau avec orientation (Laurent et al. 2021)"
   },
   {
     "objectID": "index.html#est-ce-de-lia",
@@ -53,14 +81,14 @@
     "href": "index.html#données-du-problème",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Données du problème",
-    "text": "Données du problème\n\n\n\nTopographie du réseau : un graphe \\(G = (N, A)\\) composé de\n\nnoeuds \\(n \\in N\\)\narêtes \\(a = (n, n') \\in A\\)\n\nPour chaque voyage \\(v\\) :\n\nStation de depart \\(s_v^d\\) et d’arrivée \\(s_v^a\\)\nHeure de départ \\(h_v^d\\) et d’arrivée \\(h_v^a\\) théoriques\n\nDurée de la journée \\(T\\)\n\n\n\n\n\nRéseau Flatland représenté comme un graphe"
+    "text": "Données du problème\n\n\n\nTopographie du réseau : un graphe dirigé \\(G = (N, A)\\)\nPour chaque voyage \\(v\\) :\n\nStation de depart \\(s_v^d\\) et d’arrivée \\(s_v^a\\)\nHeure de départ \\(h_v^d\\) et d’arrivée \\(h_v^a\\) théoriques\n\nDurée de la journée \\(T\\)\n\n\n\n\n\nEnvironnement Flatland (Mohanty et al. 2020)"
   },
   {
     "objectID": "index.html#variables-de-décision",
     "href": "index.html#variables-de-décision",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Variables de décision",
-    "text": "Variables de décision\nItinéraire de chaque voyage : suite de noeuds \\((n_v^1, ..., n_v^T)\\)\nHeures d’arrivée et de départ ? Déterminées par les contraintes."
+    "text": "Variables de décision\nItinéraire de chaque voyage : suite de noeuds \\((n_v^1, ..., n_v^T)\\)\nHeures d’arrivée et de départ ? Déterminées par les contraintes.\n\nDécider ce que fait chaque train à chaque intersection (Laurent et al. 2021)"
   },
   {
     "objectID": "index.html#contraintes-à-respecter",
@@ -77,53 +105,32 @@
     "text": "Fonction objectif\nRetard d’un voyage : \\[r_v = \\max(0, \\delta_v) \\quad \\text{où} \\quad \\delta_v = \\min \\{t : n_v^t = s_v^a\\} - h_v^a\\]\n“Coût” à minimiser : plusieurs choix possibles\n\n\n\nRetard total \\(\\sum_v r_v\\)\n\n\n\nRetard maximal \\(\\max_v r_v\\)"
   },
   {
-    "objectID": "index.html#beaucoup-de-chemins-possibles",
-    "href": "index.html#beaucoup-de-chemins-possibles",
+    "objectID": "index.html#critères-danalyse-dun-algorithme",
+    "href": "index.html#critères-danalyse-dun-algorithme",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Beaucoup de chemins possibles",
-    "text": "Beaucoup de chemins possibles"
+    "section": "Critères d’analyse d’un algorithme",
+    "text": "Critères d’analyse d’un algorithme\n\nTerminaison\nCorrection\nOptimalité\nComplexité en temps\nComplexité en espace"
   },
   {
-    "objectID": "index.html#différentes-options",
-    "href": "index.html#différentes-options",
+    "objectID": "index.html#polynomial-vs-exponentiel",
+    "href": "index.html#polynomial-vs-exponentiel",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Différentes options",
-    "text": "Différentes options\nClique ici pour les visualiser :\n\nRecherche en largeur\nRecherche en profondeur\nAlgorithme A*"
+    "section": "Polynomial vs exponentiel",
+    "text": "Polynomial vs exponentiel"
   },
   {
-    "objectID": "index.html#complexité-des-algorithmes",
-    "href": "index.html#complexité-des-algorithmes",
+    "objectID": "index.html#exemples",
+    "href": "index.html#exemples",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Complexité des algorithmes",
-    "text": "Complexité des algorithmes"
+    "section": "Exemples",
+    "text": "Exemples"
   },
   {
-    "objectID": "index.html#une-explosion-des-possibilités",
-    "href": "index.html#une-explosion-des-possibilités",
+    "objectID": "index.html#pourquoi-se-comparer",
+    "href": "index.html#pourquoi-se-comparer",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Une explosion des possibilités",
-    "text": "Une explosion des possibilités"
-  },
-  {
-    "objectID": "index.html#recherche-arborescente-cest-trop-long",
-    "href": "index.html#recherche-arborescente-cest-trop-long",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Recherche arborescente : c’est trop long !",
-    "text": "Recherche arborescente : c’est trop long !"
-  },
-  {
-    "objectID": "index.html#planification-priorisée",
-    "href": "index.html#planification-priorisée",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Planification priorisée",
-    "text": "Planification priorisée"
-  },
-  {
-    "objectID": "index.html#recherche-à-voisinages-larges",
-    "href": "index.html#recherche-à-voisinages-larges",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Recherche à voisinages larges",
-    "text": "Recherche à voisinages larges"
+    "section": "Pourquoi se comparer ?",
+    "text": "Pourquoi se comparer ?"
   },
   {
     "objectID": "index.html#simplification-1-de-la-réalité-à-flatland",
@@ -154,11 +161,60 @@
     "text": "Le challenge Flatland"
   },
   {
-    "objectID": "index.html#gagner-le-challenge-flatland",
-    "href": "index.html#gagner-le-challenge-flatland",
+    "objectID": "index.html#comment-gagner-le-challenge-flatland",
+    "href": "index.html#comment-gagner-le-challenge-flatland",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Gagner le challenge Flatland",
-    "text": "Gagner le challenge Flatland"
+    "section": "Comment gagner le challenge Flatland ?",
+    "text": "Comment gagner le challenge Flatland ?"
+  },
+  {
+    "objectID": "index.html#différentes-options",
+    "href": "index.html#différentes-options",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Différentes options",
+    "text": "Différentes options\nClique ici pour les visualiser :\n\nRecherche en largeur\nRecherche en profondeur\nAlgorithme A*"
+  },
+  {
+    "objectID": "index.html#recherche-en-largeur-exploration-naïve",
+    "href": "index.html#recherche-en-largeur-exploration-naïve",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Recherche en largeur : exploration naïve",
+    "text": "Recherche en largeur : exploration naïve"
+  },
+  {
+    "objectID": "index.html#algorithme-a-exploration-guidée",
+    "href": "index.html#algorithme-a-exploration-guidée",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Algorithme A* : exploration guidée",
+    "text": "Algorithme A* : exploration guidée"
+  },
+  {
+    "objectID": "index.html#une-explosion-des-possibilités",
+    "href": "index.html#une-explosion-des-possibilités",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Une explosion des possibilités",
+    "text": "Une explosion des possibilités"
+  },
+  {
+    "objectID": "index.html#recherche-arborescente-cest-trop-long",
+    "href": "index.html#recherche-arborescente-cest-trop-long",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Recherche arborescente : c’est trop long !",
+    "text": "Recherche arborescente : c’est trop long !"
+  },
+  {
+    "objectID": "index.html#planification-priorisée",
+    "href": "index.html#planification-priorisée",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Planification priorisée",
+    "text": "Planification priorisée"
+  },
+  {
+    "objectID": "index.html#recherche-à-voisinages-larges",
+    "href": "index.html#recherche-à-voisinages-larges",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Recherche à voisinages larges",
+    "text": "Recherche à voisinages larges"
   },
   {
     "objectID": "index.html#existe-t-il-toujours-un-plus-court-chemin",
@@ -186,7 +242,7 @@
     "href": "index.html#références",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Références",
-    "text": "Références\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489."
+    "text": "Références\n\n\nAbbe, Emmanuel. 2018. “Community Detection and Stochastic Block Models: Recent Developments.” Journal of Machine Learning Research 18 (177): 1–86. http://jmlr.org/papers/v18/16-480.html.\n\n\nLaurent, Florian, Manuel Schneider, Christian Scheller, Jeremy Watson, Jiaoyang Li, Zhe Chen, Yi Zheng, et al. 2021. “Flatland Competition 2020: MAPF and MARL for Efficient Train Coordination on a Grid World.” March 30, 2021. http://arxiv.org/abs/2103.16511.\n\n\nMohanty, Sharada, Erik Nygren, Florian Laurent, Manuel Schneider, Christian Scheller, Nilabha Bhattacharya, Jeremy Watson, et al. 2020. “Flatland-RL : Multi-Agent Reinforcement Learning on Trains.” December 11, 2020. http://arxiv.org/abs/2012.05893.\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489."
   },
   {
     "objectID": "index.html#des-questions",
