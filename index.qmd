@@ -11,10 +11,11 @@ format:
     width: 1280
     height: 720
     slide-number: true
+    code-fold: true
     title-slide-attributes:
-      data-background-image: img/logos/enpc.png, img/logos/lvmt.png
-      data-background-size: 25%, 25%
-      data-background-position: 20% 98%, 80% 95%
+      data-background-image: img/logos/enpc.png
+      data-background-size: 30%
+      data-background-position: 50% 98%
 engine: julia
 bibliography: SMAI.bib
 css: style.css
@@ -116,7 +117,66 @@ But : amener chaque train de son point de départ à son point d'arrivée.
 
 ![Le challenge Flatland (<https://flatland-association.github.io/>)](img/flatland/animation.gif){.lightbox}
 
-Il s'agit d'un problème d'optimisation combinatoire.
+Il s'agit d'un problème d'**optimisation** sur un **graphe**, de complexité **exponentielle**.
+
+# Notions de théorie des graphes
+
+## Définition
+
+:::: {.columns}
+::: {.column width="60%"}
+Un graphe $G = (N, A)$ est composé
+
+- d'un ensemble de noeuds $u \in N$
+- d'un ensemble d'arêtes $a = (u, v) \in A$
+:::
+::: {.column width="40%"}
+```{julia}
+using Graphs, CairoMakie, GraphMakie
+g = SimpleGraph(10, 20)
+fig = Figure()
+ax = Axis(fig[1, 1])
+pl = graphplot!(ax, g, ilabels=collect(1:nv(g)), ilabels_fontsize=40)
+hidedecorations!(ax)
+hidespines!(ax)
+fig
+```
+:::
+::::
+
+Permet de représenter des connexions entre différentes entités.
+
+## Origines : les 7 ponts de Königsberg
+
+Le premier problème de théorie des graphes fut posé par Euler.
+
+![Peut-on traverser tous ces ponts une fois chacun sans revenir sur ses pas ?](img/graphs/konigsberg.png)
+
+:::: {style="font-size: 40%;"}
+Image by Twotwos - Own work based on: Konigsberg bridges.png. This file was derived from: Image-Koenigsberg, Map by Merian-Erben 1652.jpg, CC BY-SA 4.0, <https://commons.wikimedia.org/w/index.php?curid=175193733>
+::::
+
+## Applications
+
+:::: {.columns}
+::: {.column width="33%"}
+- Réseaux sociaux
+:::
+::: {.column width="33%"}
+- Transports
+:::
+::: {.column width="33%"}
+- Molécules / protéines
+:::
+::::
+
+![Structure de communauté dans un graphe [@abbeCommunityDetectionStochastic2018]](img/graphs/community.png)
+
+## Le réseau ferroviaire comme graphe
+
+Un noeud ne correspond pas toujours à une localisation physique !
+
+![Représentation graphique d'un réseau avec orientation [@laurentFlatlandCompetition20202021]](img/flatland/graph.png){.lightbox}
 
 # Notions d'optimisation
 
@@ -185,11 +245,9 @@ Pour que l'ordinateur aide à la décision, il faut expliciter le problème :
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="55%"}
 
-- Topographie du réseau : un graphe $G = (N, A)$ composé de
-  - noeuds $n \in N$
-  - arêtes $a = (n, n') \in A$
+- Topographie du réseau : un graphe dirigé $G = (N, A)$
 - Pour chaque voyage $v$ :
   - Station de depart $s_v^d$ et d'arrivée $s_v^a$
   - Heure de départ $h_v^d$ et d'arrivée $h_v^a$ théoriques
@@ -197,8 +255,8 @@ Pour que l'ordinateur aide à la décision, il faut expliciter le problème :
 
 :::
 
-::: {.column width="40%"}
-![Réseau Flatland représenté comme un graphe](img/flatland/graph.png){.lightbox}
+::: {.column width="45%"}
+![Environnement Flatland [@mohantyFlatlandRLMultiAgentReinforcement2020]](img/flatland/env1.png){.lightbox}
 :::
 
 ::::
@@ -208,6 +266,8 @@ Pour que l'ordinateur aide à la décision, il faut expliciter le problème :
 Itinéraire de chaque voyage : suite de noeuds $(n_v^1, ..., n_v^T)$
 
 Heures d'arrivée et de départ ? Déterminées par les contraintes.
+
+![Décider ce que fait chaque train à chaque intersection [@laurentFlatlandCompetition20202021]](img/flatland/flatland_env_and_transitions.png)
 
 ## Contraintes à respecter
 
@@ -233,11 +293,35 @@ $$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \min \{t : n_v^t = s
 :::
 ::::
 
+# Notions de complexité
+
+## Critères d'analyse d'un algorithme
+
+- Terminaison
+- Correction
+- Optimalité
+- Complexité en temps
+- Complexité en espace
+
+## Polynomial vs exponentiel
+
+## Exemples
+
+# Le rôle des benchmarks
+
+## Pourquoi se comparer ?
+
+## Simplification 1 : de la réalité à Flatland
+
+## Simplification 2 : de Flatland au MAPF
+
+## Le benchmark MAPF
+
+## Le challenge Flatland
+
+## Comment gagner le challenge Flatland ?
+
 # Itinéraire pour un seul train
-
-## Beaucoup de chemins possibles
-
-
 
 ## Différentes options
 
@@ -247,7 +331,9 @@ $$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \min \{t : n_v^t = s
 - Recherche en profondeur
 - Algorithme A*
 
-## Complexité des algorithmes
+## Recherche en largeur : exploration naïve
+
+## Algorithme A* : exploration guidée
 
 # Itinéraires pour plusieurs trains
 
@@ -258,19 +344,6 @@ $$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \min \{t : n_v^t = s
 ## Planification priorisée
 
 ## Recherche à voisinages larges
-
-
-# Le rôle des benchmarks
-
-## Simplification 1 : de la réalité à Flatland
-
-## Simplification 2 : de Flatland au MAPF
-
-## Le benchmark MAPF
-
-## Le challenge Flatland
-
-## Gagner le challenge Flatland
 
 # Pour aller plus loin
 
