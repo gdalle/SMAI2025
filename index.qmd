@@ -91,7 +91,7 @@ De multiples disciplines mobilisées :
 
 ::: {.column width="40%"}
 
-![Étapes du processus [@schlechteRailwayTrackAllocation2012]](img/papers/planning.png){.lightbox}
+![Étapes du processus [@schlechteRailwayTrackAllocation2012]](img/papers/planning.png){.lightbox width="80%"}
 
 :::
 
@@ -135,13 +135,14 @@ Un graphe $G = (N, A)$ est composé
 ```{julia}
 using Graphs, CairoMakie, GraphMakie, NetworkLayout, StableRNGs
 
-function plot_graph(g; layout=Spring(), margin=(0.1, 0.1, 0.1, 0.1))
+function plot_graph(g, w=nothing; layout=Spring(), margin=(0.1, 0.1, 0.1, 0.1))
     pos = layout(g)
     x0, x1 = minimum(map(x -> x[1], pos)), maximum(map(x -> x[1], pos))
     y0, y1 = minimum(map(x -> x[2], pos)), maximum(map(x -> x[2], pos))
+    elabels = isnothing(w) ? nothing : [string(w[src(e), dst(e)]) for e in edges(g)]
     fig = Figure()
     ax = Axis(fig[1, 1])
-    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), ilabels_fontsize=40)
+    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), elabels, ilabels_fontsize=50, elabels_fontsize=40, arrow_shift=:end, arrow_size=40)
     xlims!(ax, x0 - margin[4] * (x1 - x0), x1 + margin[2] * (x1 - x0))
     ylims!(ax, y0 - margin[1] * (y1 - y0), y1 + margin[3] * (y1 - y0))
     hidedecorations!(ax)
@@ -177,7 +178,7 @@ Le premier problème de théorie des graphes fut posé par Euler.
 :::
 ::::
 
-![Structure de communauté dans un graphe [@abbeCommunityDetectionStochastic2018]](img/graphs/community.png){.lightbox}
+![Structure de communauté dans un graphe [@abbeCommunityDetectionStochastic2018]](img/graphs/community.png){.lightbox width="70%"}
 
 ## Le réseau ferroviaire comme graphe
 
@@ -199,7 +200,7 @@ L'Intelligence Artificielle désigne un ensemble d'algorithmes permettant d'auto
 
 Anticiper un phénomène inconnu ou futur.
 :::
-![](img/apps/translate.png){height=300 fig-align="center"}
+![](img/apps/translate.png){height=250 fig-align="center"}
 ::::
 
 :::: {.column width="33%"}
@@ -208,7 +209,7 @@ Anticiper un phénomène inconnu ou futur.
 
 Produire des médias à partir de consignes et d'exemples.
 :::
-![](img/apps/chatgpt.png){height=300 fig-align="center"}
+![](img/apps/chatgpt.png){height=250 fig-align="center"}
 ::::
 
 :::: {.column width="33%"}
@@ -217,10 +218,48 @@ Produire des médias à partir de consignes et d'exemples.
 
 Planifier l'usage de ressources limitées.
 :::
-![](img/apps/maps.png){height=300 fig-align="center"}
+![](img/apps/maps.png){height=250 fig-align="center"}
 ::::
 
 :::::
+
+## Vous savez déjà résoudre des problèmes d'optimisation
+
+:::: {.columns}
+::: {.column width="60%"}
+Trouver le minimum d'une fonction $f(x)$ pour $x \in \mathbb{R}$.
+
+Il suffit de calculer sa dérivée $f'(x)$ et de résoudre $f'(x) = 0$.
+
+Problème : comment fait-on si $x$ doit satisfaire des contraintes ?
+:::
+::: {.column width="40%"}
+```{julia}
+x = -4:0.01:4
+f(x) = cos(x-3) / (x+5)
+lines(x, f.(x), linewidth=3)
+```
+:::
+::::
+
+
+## Un problème sous contrainte
+
+On me donne une tôle d'aluminium de surface $1 m^2$ pour fabriquer une casserole. Comment obtenir le plus grand volume ?
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- La casserole a un rayon $r$ et une hauteur $h$.
+- Sa surface est donnée par $S(r, h) = \pi r^2 + 2 \pi r h$.
+- Son volume est donné par $V(r, h) = \pi r^2 h$.
+:::
+::: {.column width="50%"}
+Problème d'optimisation :
+
+$$\begin{aligned}\max_{r,h} \quad & V(r, h)  \\ \text{s.c.} \quad & S(r, h) \leq 1  \\ & r \geq 0 \\ & h \geq 0\end{aligned}$$
+:::
+::::
 
 ## Modéliser la réalité
 
@@ -358,10 +397,10 @@ Supposons que chacune prend $1$ nanoseconde.
 
 | Problème | Complexité | Algorithme |
 |---|---|---|
-| Trouver le plus petit nombre dans une liste | $N$ | Parcours de liste |
+| Trouver le minimum d'une liste de nombres | $N$ | Parcours simple |
 | Trier une liste de nombres | $N \log N$ | Tri fusion |
-| Trouver un itinéraire dans un graphe | $N \log N$ | Dijkstra / A* |
-| Trouver plusieurs itinéraires compatibles dans un graphe | exponentielle | ? |
+| Calculer un seul itinéraire | $N \log N$ | A* |
+| Calculer plusieurs itinéraires compatibles | exponentielle | ? |
 
 # Le rôle des benchmarks
 
@@ -394,7 +433,7 @@ Flatland est un problème plus simple que la réalité :
 
 :::
 ::: {.column width="40%"}
-![Un paysage suisse bucolique (<https://flatland-association.github.io>)](img/flatland/Flatland_Preview.svg){.lightbox}
+![Un paysage suisse bucolique (<https://flatland-association.github.io>)](img/flatland/Flatland_Preview.svg){.lightbox width="80%"}
 :::
 ::::
 
@@ -438,7 +477,7 @@ Pièces
 :::
 ::: {.column width="20%"}
 ![](img/mapf/random-32-32-20.svg)
-Aléatoire
+Aléatoires
 :::
 ::::
 
@@ -448,7 +487,7 @@ Aléatoire
 ::: {.column width="50%"}
 Avec des techniques éprouvées pour un problème plus simple (MAPF) :
 
-1. Recherche d'itinéraire efficace pour un seul trains
+1. Recherche d'itinéraire efficace pour un seul train
 2. Gestion des conflits pour plusieurs trains
 
 Découvrons la stratégie de l'équipe gagnante !
@@ -459,6 +498,33 @@ Découvrons la stratégie de l'équipe gagnante !
 ::::
 
 # Itinéraire pour un seul train
+
+## Existe-t-il toujours un plus court chemin ?
+
+:::: {.columns}
+::: {.column width="50%"}
+Pas si le graphe est déconnecté
+
+```{julia}
+g = blockdiag(complete_graph(3), complete_graph(3))
+plot_graph(g)
+```
+:::
+::: {.column width="40%"}
+Pas si le graphe a des cycles de coût négatif
+
+```{julia}
+using SimpleWeightedGraphs
+g = SimpleWeightedDiGraph([
+  0 1 0 0
+  0 0 1 0
+  0 -2 0 1
+  0 0 0 0
+])
+plot_graph(g, weights(g))
+```
+:::
+::::
 
 ## Recherche en largeur : exploration naïve
 
@@ -490,8 +556,8 @@ Exploration à l'aveugle
 
 Prioriser les sommets selon la somme de deux quantités :
 
-- distance exacte depuis l'origine
-- distance _approximative_ jusqu'à la destination
+- distance exacte depuis l'origine $g(n)$
+- distance _approximative_ jusqu'à la destination $h(n)$
 
 ::::: {.columns}
 
@@ -515,18 +581,19 @@ Nécessite une bonne "heuristique"
 
 [Lien de visualisation](https://tobinatore.github.io/algovis/pathfinding.html)
 
-## Existe-t-il toujours un plus court chemin ?
+## Est-ce le meilleur algorithme ?
 
 :::: {.columns}
-::: {.column width="60%"}
-- Pas si le graphe est déconnecté
-- Pas si le graphe a des cycles de poids négatif
+::: {.column width="50%"}
+A* est le meilleur algorithme de sa "famille" si l'heuristique utilisée est :
+
+- admissible : sous-estime toujours le coût du chemin restant
+- consistente : satisfait l'inégalité triangulaire $h(j) \leq w(i, j) + h(i)$
+
+Mais on peut faire mieux si on a accès au graphe en avance [@bastRoutePlanningTransportation2016].
 :::
-::: {.column width="40%"}
-```{julia}
-g = blockdiag(complete_graph(3), complete_graph(3))
-plot_graph(g)
-```
+::: {.column width="50%"}
+![](img/graphs/routing.png)
 :::
 ::::
 
@@ -603,7 +670,32 @@ Quand on a trouvé une solution, on peut l'améliorer itérativement :
 
 ## Représentation des graphes en mémoire
 
+Plusieurs formats possibles :
+
+- Matrice d'adjacence
+- Liste d'adjacence
+- Liste d'arêtes
+
+[Lien de visualisation](https://visualgo.net/en/graphds)
+
 ## Complexité théorique ou pratique
+
+La complexité théorique ne dit pas tout.
+
+L'efficacité d'un algorithme dépend aussi 
+
+- de l'ordinateur et du processeur utilisé, CPU ou GPU
+- du langage de programmation choisi
+- des structures de données
+- du coût d'accès à la mémoire
+- de la taille des caches
+
+## Conclusion
+
+- :vertical_traffic_light: Les maths peuvent servir à décrire et résoudre des problèmes d'optimisation en transport.
+- :scream: Certains sont faciles (plus court chemin), d'autres difficiles (Flatland).
+- :bar_chart: Simplifier et généraliser le problème permet des approches générales et comparables.
+- :melting_face: En pratique, tout est toujours plus compliqué (c'est ça qui est fun).
 
 ## Références
 
@@ -611,3 +703,5 @@ Quand on a trouvé une solution, on peut l'améliorer itérativement :
 :::
 
 ## Des questions ?
+
+Mon site web pour plus d'infos : <https://gdalle.github.io/>

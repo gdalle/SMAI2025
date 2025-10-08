@@ -70,6 +70,20 @@
     "text": "Est-ce de l’IA ?\nL’Intelligence Artificielle désigne un ensemble d’algorithmes permettant d’automatiser des tâches typiquement attribuées aux humains.\n\n\n\n\n\n\n\n\nPrédiction\n\n\nAnticiper un phénomène inconnu ou futur.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGénération\n\n\nProduire des médias à partir de consignes et d’exemples.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDécision\n\n\nPlanifier l’usage de ressources limitées."
   },
   {
+    "objectID": "index.html#vous-savez-déjà-résoudre-des-problèmes-doptimisation",
+    "href": "index.html#vous-savez-déjà-résoudre-des-problèmes-doptimisation",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Vous savez déjà résoudre des problèmes d’optimisation",
+    "text": "Vous savez déjà résoudre des problèmes d’optimisation\n\n\nTrouver le minimum d’une fonction \\(f(x)\\) pour \\(x \\in \\mathbb{R}\\).\nIl suffit de calculer sa dérivée \\(f'(x)\\) et de résoudre \\(f'(x) = 0\\).\nProblème : comment fait-on si \\(x\\) doit satisfaire des contraintes ?"
+  },
+  {
+    "objectID": "index.html#un-problème-sous-contrainte",
+    "href": "index.html#un-problème-sous-contrainte",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Un problème sous contrainte",
+    "text": "Un problème sous contrainte\nOn me donne une tôle d’aluminium de surface \\(1 m^2\\) pour fabriquer une casserole. Comment obtenir le plus grand volume ?\n\n\n\nLa casserole a un rayon \\(r\\) et une hauteur \\(h\\).\nSa surface est donnée par \\(S(r, h) = \\pi r^2 + 2 \\pi r h\\).\nSon volume est donné par \\(V(r, h) = \\pi r^2 h\\).\n\n\nProblème d’optimisation :\n\\[\\begin{aligned}\\max_{r,h} \\quad & V(r, h)  \\\\ \\text{s.c.} \\quad & S(r, h) \\leq 1  \\\\ & r \\geq 0 \\\\ & h \\geq 0\\end{aligned}\\]"
+  },
+  {
     "objectID": "index.html#modéliser-la-réalité",
     "href": "index.html#modéliser-la-réalité",
     "title": "Des mathématiques pour faire rouler les trains",
@@ -130,7 +144,7 @@
     "href": "index.html#exemples",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Exemples",
-    "text": "Exemples\n\n\n\n\n\n\n\n\nProblème\nComplexité\nAlgorithme\n\n\n\n\nTrouver le plus petit nombre dans une liste\n\\(N\\)\nParcours de liste\n\n\nTrier une liste de nombres\n\\(N \\log N\\)\nTri fusion\n\n\nTrouver un itinéraire dans un graphe\n\\(N \\log N\\)\nDijkstra / A*\n\n\nTrouver plusieurs itinéraires compatibles dans un graphe\nexponentielle\n?"
+    "text": "Exemples\n\n\n\nProblème\nComplexité\nAlgorithme\n\n\n\n\nTrouver le minimum d’une liste de nombres\n\\(N\\)\nParcours simple\n\n\nTrier une liste de nombres\n\\(N \\log N\\)\nTri fusion\n\n\nCalculer un seul itinéraire\n\\(N \\log N\\)\nA*\n\n\nCalculer plusieurs itinéraires compatibles\nexponentielle\n?"
   },
   {
     "objectID": "index.html#pourquoi-se-comparer",
@@ -158,14 +172,21 @@
     "href": "index.html#le-benchmark-mapf",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Le benchmark MAPF",
-    "text": "Le benchmark MAPF\nInstances de tailles et natures variées (Stern et al. 2019).\n\n\n Villes\n\n Jeux vidéo\n\n Labyrinthes\n\n Pièces\n\n Aléatoire"
+    "text": "Le benchmark MAPF\nInstances de tailles et natures variées (Stern et al. 2019).\n\n\n Villes\n\n Jeux vidéo\n\n Labyrinthes\n\n Pièces\n\n Aléatoires"
   },
   {
     "objectID": "index.html#comment-gagner-le-challenge-flatland",
     "href": "index.html#comment-gagner-le-challenge-flatland",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Comment gagner le challenge Flatland ?",
-    "text": "Comment gagner le challenge Flatland ?\n\n\nAvec des techniques éprouvées pour un problème plus simple (MAPF) :\n\nRecherche d’itinéraire efficace pour un seul trains\nGestion des conflits pour plusieurs trains\n\nDécouvrons la stratégie de l’équipe gagnante !\n\n\n\n\nLes deadlocks sont un défi majeur (Li et al. 2021)"
+    "text": "Comment gagner le challenge Flatland ?\n\n\nAvec des techniques éprouvées pour un problème plus simple (MAPF) :\n\nRecherche d’itinéraire efficace pour un seul train\nGestion des conflits pour plusieurs trains\n\nDécouvrons la stratégie de l’équipe gagnante !\n\n\n\n\nLes deadlocks sont un défi majeur (Li et al. 2021)"
+  },
+  {
+    "objectID": "index.html#existe-t-il-toujours-un-plus-court-chemin",
+    "href": "index.html#existe-t-il-toujours-un-plus-court-chemin",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Existe-t-il toujours un plus court chemin ?",
+    "text": "Existe-t-il toujours un plus court chemin ?\n\n\nPas si le graphe est déconnecté\n\n\n\n\n\n\nPas si le graphe a des cycles de coût négatif"
   },
   {
     "objectID": "index.html#recherche-en-largeur-exploration-naïve",
@@ -179,14 +200,14 @@
     "href": "index.html#algorithme-a-exploration-guidée",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Algorithme A* : exploration guidée",
-    "text": "Algorithme A* : exploration guidée\nPrioriser les sommets selon la somme de deux quantités :\n\ndistance exacte depuis l’origine\ndistance approximative jusqu’à la destination\n\n\n\n\n\n\n\n\n\nAvantage\n\n\nÉvite de se disperser\n\n\n\n\n\n\n\n\n\n\nDéfaut\n\n\nNécessite une bonne “heuristique”\n\n\n\n\nLien de visualisation"
+    "text": "Algorithme A* : exploration guidée\nPrioriser les sommets selon la somme de deux quantités :\n\ndistance exacte depuis l’origine \\(g(n)\\)\ndistance approximative jusqu’à la destination \\(h(n)\\)\n\n\n\n\n\n\n\n\n\nAvantage\n\n\nÉvite de se disperser\n\n\n\n\n\n\n\n\n\n\nDéfaut\n\n\nNécessite une bonne “heuristique”\n\n\n\n\nLien de visualisation"
   },
   {
-    "objectID": "index.html#existe-t-il-toujours-un-plus-court-chemin",
-    "href": "index.html#existe-t-il-toujours-un-plus-court-chemin",
+    "objectID": "index.html#est-ce-le-meilleur-algorithme",
+    "href": "index.html#est-ce-le-meilleur-algorithme",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Existe-t-il toujours un plus court chemin ?",
-    "text": "Existe-t-il toujours un plus court chemin ?\n\n\n\nPas si le graphe est déconnecté\nPas si le graphe a des cycles de poids négatif"
+    "section": "Est-ce le meilleur algorithme ?",
+    "text": "Est-ce le meilleur algorithme ?\n\n\nA* est le meilleur algorithme de sa “famille” si l’heuristique utilisée est :\n\nadmissible : sous-estime toujours le coût du chemin restant\nconsistente : satisfait l’inégalité triangulaire \\(h(j) \\leq w(i, j) + h(i)\\)\n\nMais on peut faire mieux si on a accès au graphe en avance (Bast et al. 2016)."
   },
   {
     "objectID": "index.html#une-explosion-des-possibilités",
@@ -221,27 +242,34 @@
     "href": "index.html#représentation-des-graphes-en-mémoire",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Représentation des graphes en mémoire",
-    "text": "Représentation des graphes en mémoire"
+    "text": "Représentation des graphes en mémoire\nPlusieurs formats possibles :\n\nMatrice d’adjacence\nListe d’adjacence\nListe d’arêtes\n\nLien de visualisation"
   },
   {
     "objectID": "index.html#complexité-théorique-ou-pratique",
     "href": "index.html#complexité-théorique-ou-pratique",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Complexité théorique ou pratique",
-    "text": "Complexité théorique ou pratique"
+    "text": "Complexité théorique ou pratique\nLa complexité théorique ne dit pas tout.\nL’efficacité d’un algorithme dépend aussi\n\nde l’ordinateur et du processeur utilisé, CPU ou GPU\ndu langage de programmation choisi\ndes structures de données\ndu coût d’accès à la mémoire\nde la taille des caches"
+  },
+  {
+    "objectID": "index.html#conclusion",
+    "href": "index.html#conclusion",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Conclusion",
+    "text": "Conclusion\n\n🚦 Les maths peuvent servir à décrire et résoudre des problèmes d’optimisation en transport.\n😱 Certains sont faciles (plus court chemin), d’autres difficiles (Flatland).\n📊 Simplifier et généraliser le problème permet des approches générales et comparables.\n🫠 En pratique, tout est toujours plus compliqué (c’est ça qui est fun)."
   },
   {
     "objectID": "index.html#références",
     "href": "index.html#références",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Références",
-    "text": "Références\n\n\nAbbe, Emmanuel. 2018. “Community Detection and Stochastic Block Models: Recent Developments.” Journal of Machine Learning Research 18 (177): 1–86. http://jmlr.org/papers/v18/16-480.html.\n\n\nGao, Jianqi, Yanjie Li, Xinyi Li, Kejian Yan, Ke Lin, and Xinyu Wu. 2024. “A Review of Graph-Based Multi-Agent Pathfinding Solvers: From Classical to Beyond Classical.” Knowledge-Based Systems 283 (January): 111121. https://doi.org/10.1016/j.knosys.2023.111121.\n\n\nLaurent, Florian, Manuel Schneider, Christian Scheller, Jeremy Watson, Jiaoyang Li, Zhe Chen, Yi Zheng, et al. 2021. “Flatland Competition 2020: MAPF and MARL for Efficient Train Coordination on a Grid World.” March 30, 2021. http://arxiv.org/abs/2103.16511.\n\n\nLi, Jiaoyang, Zhe Chen, Yi Zheng, Shao-Hung Chan, Daniel Harabor, Peter J. Stuckey, Hang Ma, and Sven Koenig. 2021. “Scalable Rail Planning and Replanning: Winning the 2020 Flatland Challenge.” Proceedings of the International Conference on Automated Planning and Scheduling 31 (May): 477–85. https://ojs.aaai.org/index.php/ICAPS/article/view/15994.\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489.\n\n\nStern, Roni, Nathan Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne Walker, Jiaoyang Li, et al. 2019. “Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks.” Proceedings of the International Symposium on Combinatorial Search 10 (1, 1): 151–58. https://doi.org/10.1609/socs.v10i1.18510.\n\n\nWang, Shiyue, Haozheng Xu, Yuhan Zhang, Jingran Lin, Changhong Lu, Xiangfeng Wang, and Wenhao Li. 2025. “Where Paths Collide: A Comprehensive Survey of Classic and Learning-Based Multi-Agent Pathfinding.” May 25, 2025. https://doi.org/10.48550/arXiv.2505.19219."
+    "text": "Références\n\n\nAbbe, Emmanuel. 2018. “Community Detection and Stochastic Block Models: Recent Developments.” Journal of Machine Learning Research 18 (177): 1–86. http://jmlr.org/papers/v18/16-480.html.\n\n\nBast, Hannah, Daniel Delling, Andrew Goldberg, Matthias Müller-Hannemann, Thomas Pajor, Peter Sanders, Dorothea Wagner, and Renato F. Werneck. 2016. “Route Planning in Transportation Networks.” In Algorithm Engineering: Selected Results and Surveys, edited by Lasse Kliemann and Peter Sanders, 19–80. Lecture Notes in Computer Science. Cham: Springer International Publishing. https://doi.org/10.1007/978-3-319-49487-6_2.\n\n\nGao, Jianqi, Yanjie Li, Xinyi Li, Kejian Yan, Ke Lin, and Xinyu Wu. 2024. “A Review of Graph-Based Multi-Agent Pathfinding Solvers: From Classical to Beyond Classical.” Knowledge-Based Systems 283 (January): 111121. https://doi.org/10.1016/j.knosys.2023.111121.\n\n\nLaurent, Florian, Manuel Schneider, Christian Scheller, Jeremy Watson, Jiaoyang Li, Zhe Chen, Yi Zheng, et al. 2021. “Flatland Competition 2020: MAPF and MARL for Efficient Train Coordination on a Grid World.” March 30, 2021. http://arxiv.org/abs/2103.16511.\n\n\nLi, Jiaoyang, Zhe Chen, Yi Zheng, Shao-Hung Chan, Daniel Harabor, Peter J. Stuckey, Hang Ma, and Sven Koenig. 2021. “Scalable Rail Planning and Replanning: Winning the 2020 Flatland Challenge.” Proceedings of the International Conference on Automated Planning and Scheduling 31 (May): 477–85. https://ojs.aaai.org/index.php/ICAPS/article/view/15994.\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489.\n\n\nStern, Roni, Nathan Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne Walker, Jiaoyang Li, et al. 2019. “Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks.” Proceedings of the International Symposium on Combinatorial Search 10 (1, 1): 151–58. https://doi.org/10.1609/socs.v10i1.18510.\n\n\nWang, Shiyue, Haozheng Xu, Yuhan Zhang, Jingran Lin, Changhong Lu, Xiangfeng Wang, and Wenhao Li. 2025. “Where Paths Collide: A Comprehensive Survey of Classic and Learning-Based Multi-Agent Pathfinding.” May 25, 2025. https://doi.org/10.48550/arXiv.2505.19219."
   },
   {
     "objectID": "index.html#des-questions",
     "href": "index.html#des-questions",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Des questions ?",
-    "text": "Des questions ?"
+    "text": "Des questions ?\nMon site web pour plus d’infos : https://gdalle.github.io/"
   }
 ]
