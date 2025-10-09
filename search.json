@@ -70,11 +70,11 @@
     "text": "Est-ce de l’IA ?\nL’Intelligence Artificielle désigne un ensemble d’algorithmes permettant d’automatiser des tâches typiquement attribuées aux humains.\n\n\n\n\n\n\n\n\nPrédiction\n\n\nAnticiper un phénomène inconnu ou futur.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGénération\n\n\nProduire des médias à partir de consignes et d’exemples.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDécision\n\n\nPlanifier l’usage de ressources limitées."
   },
   {
-    "objectID": "index.html#vous-savez-déjà-résoudre-des-problèmes-doptimisation",
-    "href": "index.html#vous-savez-déjà-résoudre-des-problèmes-doptimisation",
+    "objectID": "index.html#vous-apprendrez-cette-année-à-résoudre-des-problèmes-doptimisation",
+    "href": "index.html#vous-apprendrez-cette-année-à-résoudre-des-problèmes-doptimisation",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Vous savez déjà résoudre des problèmes d’optimisation",
-    "text": "Vous savez déjà résoudre des problèmes d’optimisation\n\n\nTrouver le minimum d’une fonction \\(f(x)\\) pour \\(x \\in \\mathbb{R}\\).\nIl suffit de calculer sa dérivée \\(f'(x)\\) et de résoudre \\(f'(x) = 0\\).\nProblème : comment fait-on si \\(x\\) doit satisfaire des contraintes ?"
+    "section": "Vous apprendrez cette année à résoudre des problèmes d’optimisation",
+    "text": "Vous apprendrez cette année à résoudre des problèmes d’optimisation\n\n\nTrouver le minimum d’une fonction \\(x \\in \\mathbb{R} \\longmapsto f(x)\\).\nIl suffit de calculer sa dérivée \\(f'(x)\\) (pente de la courbe) et de résoudre \\(f'(x) = 0\\).\nProblème : comment fait-on si \\(x\\) doit satisfaire des contraintes ?"
   },
   {
     "objectID": "index.html#un-problème-sous-contrainte",
