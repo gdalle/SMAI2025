@@ -142,7 +142,7 @@ function plot_graph(g, w=nothing; layout=Spring(), margin=(0.1, 0.1, 0.1, 0.1))
     elabels = isnothing(w) ? nothing : [string(w[src(e), dst(e)]) for e in edges(g)]
     fig = Figure()
     ax = Axis(fig[1, 1])
-    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), elabels, ilabels_fontsize=50, elabels_fontsize=40, arrow_shift=:end, arrow_size=40)
+    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), elabels, ilabels_fontsize=50, elabels_fontsize=40, arrow_shift=:end, arrow_size=isnothing(w) * 40)
     xlims!(ax, x0 - margin[4] * (x1 - x0), x1 + margin[2] * (x1 - x0))
     ylims!(ax, y0 - margin[1] * (y1 - y0), y1 + margin[3] * (y1 - y0))
     hidedecorations!(ax)
@@ -223,21 +223,24 @@ Planifier l'usage de ressources limitées.
 
 :::::
 
-## Vous savez déjà résoudre des problèmes d'optimisation
+## Vous apprendrez cette année à résoudre des problèmes d'optimisation
 
 :::: {.columns}
 ::: {.column width="60%"}
-Trouver le minimum d'une fonction $f(x)$ pour $x \in \mathbb{R}$.
+Trouver le minimum d'une fonction $x \in \mathbb{R} \longmapsto f(x)$.
 
-Il suffit de calculer sa dérivée $f'(x)$ et de résoudre $f'(x) = 0$.
+Il suffit de calculer sa dérivée $f'(x)$ (pente de la courbe) et de résoudre $f'(x) = 0$.
 
 Problème : comment fait-on si $x$ doit satisfaire des contraintes ?
 :::
 ::: {.column width="40%"}
 ```{julia}
 x = -4:0.01:4
-f(x) = cos(x-3) / (x+5)
-lines(x, f.(x), linewidth=3)
+f(x) = 3cos(x-3) / (x+5)
+fig = Figure(size=(600, 600))
+ax = Axis(fig[1, 1], xlabel="x", ylabel="f(x)", xlabelsize=50, ylabelsize=50, aspect=1.0)
+lines!(ax, x, f.(x), linewidth=8)
+fig
 ```
 :::
 ::::
