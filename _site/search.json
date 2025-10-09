@@ -109,14 +109,14 @@
     "href": "index.html#contraintes-à-respecter",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Contraintes à respecter",
-    "text": "Contraintes à respecter\n\nChaque voyage existe sur le réseau : \\((n_v^t, n_v^{t+1}) \\in A\\)\nChaque voyage part de sa station de départ : \\(n_v^1 = s_v^d\\)\nChaque voyage arrive à sa station d’arrivée : \\(n_v^T = s_v^a\\)\nChaque voyage attend son heure de départ : \\(n_v^1 = n_v^2 = \\dots = n_v^{h_v^d}\\)\nDeux voyages n’occupent jamais le même noeud en même temps : \\(n_v^t \\neq n_{v'}^t\\)"
+    "text": "Contraintes à respecter\n\nChaque voyage existe sur le réseau : \\((n_v^t, n_v^{t+1}) \\in A\\)\nChaque voyage part de sa station de départ : \\(n_v^1 = s_v^d\\)\nChaque voyage arrive à sa station d’arrivée : \\(n_v^T = s_v^a\\)\nChaque voyage attend son heure de départ : \\(n_v^1 = n_v^2 = \\dots = n_v^{h_v^d}\\)\nDeux voyages n’occupent pas le même noeud en même temps : \\(n_v^t \\neq n_{v'}^t\\)"
   },
   {
     "objectID": "index.html#fonction-objectif",
     "href": "index.html#fonction-objectif",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Fonction objectif",
-    "text": "Fonction objectif\nRetard d’un voyage : \\[r_v = \\max(0, \\delta_v) \\quad \\text{où} \\quad \\delta_v = \\min \\{t : n_v^t = s_v^a\\} - h_v^a\\]\n“Coût” à minimiser : plusieurs choix possibles\n\n\n\nRetard total \\(\\sum_v r_v\\)\n\n\n\nRetard maximal \\(\\max_v r_v\\)"
+    "text": "Fonction objectif\nRetard d’un voyage : \\[r_v = \\max(0, \\delta_v) \\quad \\text{où} \\quad \\delta_v = \\text{ heure d'arrivée réelle } - h_v^a\\]\n“Coût” à minimiser : plusieurs choix possibles pour agréger les voyages\n\n\n\nRetard total \\(r_1 + r_2 + \\dots + r_V\\)\n\n\n\nPlus grand retard \\(\\max (r_1, r_2, \\dots, r_V)\\)"
   },
   {
     "objectID": "index.html#résolution",
@@ -151,7 +151,7 @@
     "href": "index.html#pourquoi-se-comparer",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Pourquoi se comparer ?",
-    "text": "Pourquoi se comparer ?\n\n\nOn sait résoudre des problèmes exponentiels, mais pas toujours exactement.\nBenchmark = instances de test standardisées pour évaluer les différentes approches.\n\n\n\n\nDifférentes méthodes de résolution pour Flatland (Laurent et al. 2021)\n\n\n\nNécessite de trouver des points communs entre différents problèmes."
+    "text": "Pourquoi se comparer ?\n\n\nOn sait résoudre des problèmes exponentiels, mais pas toujours exactement.\nBenchmark = scénario standardisé pour évaluer les différentes approches.\n\n\n\n\nDifférentes méthodes de résolution pour Flatland (Laurent et al. 2021)\n\n\n\nNécessite de trouver des points communs entre différents problèmes."
   },
   {
     "objectID": "index.html#simplification-1-de-la-réalité-à-flatland",
@@ -214,7 +214,7 @@
     "href": "index.html#une-explosion-des-possibilités",
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Une explosion des possibilités",
-    "text": "Une explosion des possibilités\nIdéalement, on voudrait trouver les itinéraires pour chaque agent en parallèle.\nPlus les agents sont nombreux, plus on dévie du chemin optimal.\nLien de visualisation."
+    "text": "Une explosion des possibilités\nIdéalement, on voudrait trouver les itinéraires pour chaque agent en parallèle.\nPlus les agents sont nombreux, plus on dévie du chemin optimal.\nLien de visualisation"
   },
   {
     "objectID": "index.html#recherche-arborescente-cest-trop-long",
@@ -231,39 +231,11 @@
     "text": "Planification priorisée\nIdée : planifier les agents un par un, et les considérer comme obstacles figés ensuite.\n\n\n\n\n\nL’ordre de priorité est important (Wang et al. 2025)\n\n\n\n\n\n\n\n\n\nAvantage\n\n\nTrès rapide à exécuter\n\n\n\n\n\n\n\n\n\nDéfaut\n\n\nNe trouve pas forcément de solution (optimale)"
   },
   {
-    "objectID": "index.html#recherche-à-voisinages-larges",
-    "href": "index.html#recherche-à-voisinages-larges",
+    "objectID": "index.html#leçons-à-retenir",
+    "href": "index.html#leçons-à-retenir",
     "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Recherche à voisinages larges",
-    "text": "Recherche à voisinages larges\nQuand on a trouvé une solution, on peut l’améliorer itérativement :\n\nChoisir un ensemble d’agents\nOublier leurs chemins\nReconstruire de nouveaux chemins en gardant les autres fixés\nVoir si on a trouvé mieux"
-  },
-  {
-    "objectID": "index.html#représentation-des-graphes-en-mémoire",
-    "href": "index.html#représentation-des-graphes-en-mémoire",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Représentation des graphes en mémoire",
-    "text": "Représentation des graphes en mémoire\nPlusieurs formats possibles :\n\nMatrice d’adjacence\nListe d’adjacence\nListe d’arêtes\n\nLien de visualisation"
-  },
-  {
-    "objectID": "index.html#complexité-théorique-ou-pratique",
-    "href": "index.html#complexité-théorique-ou-pratique",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Complexité théorique ou pratique",
-    "text": "Complexité théorique ou pratique\nLa complexité théorique ne dit pas tout.\nL’efficacité d’un algorithme dépend aussi\n\nde l’ordinateur et du processeur utilisé, CPU ou GPU\ndu langage de programmation choisi\ndes structures de données\ndu coût d’accès à la mémoire\nde la taille des caches"
-  },
-  {
-    "objectID": "index.html#conclusion",
-    "href": "index.html#conclusion",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Conclusion",
-    "text": "Conclusion\n\n🚦 Les maths peuvent servir à décrire et résoudre des problèmes d’optimisation en transport.\n😱 Certains sont faciles (plus court chemin), d’autres difficiles (Flatland).\n📊 Simplifier et généraliser le problème permet des approches générales et comparables.\n🫠 En pratique, tout est toujours plus compliqué (c’est ça qui est fun)."
-  },
-  {
-    "objectID": "index.html#références",
-    "href": "index.html#références",
-    "title": "Des mathématiques pour faire rouler les trains",
-    "section": "Références",
-    "text": "Références\n\n\nAbbe, Emmanuel. 2018. “Community Detection and Stochastic Block Models: Recent Developments.” Journal of Machine Learning Research 18 (177): 1–86. http://jmlr.org/papers/v18/16-480.html.\n\n\nBast, Hannah, Daniel Delling, Andrew Goldberg, Matthias Müller-Hannemann, Thomas Pajor, Peter Sanders, Dorothea Wagner, and Renato F. Werneck. 2016. “Route Planning in Transportation Networks.” In Algorithm Engineering: Selected Results and Surveys, edited by Lasse Kliemann and Peter Sanders, 19–80. Lecture Notes in Computer Science. Cham: Springer International Publishing. https://doi.org/10.1007/978-3-319-49487-6_2.\n\n\nGao, Jianqi, Yanjie Li, Xinyi Li, Kejian Yan, Ke Lin, and Xinyu Wu. 2024. “A Review of Graph-Based Multi-Agent Pathfinding Solvers: From Classical to Beyond Classical.” Knowledge-Based Systems 283 (January): 111121. https://doi.org/10.1016/j.knosys.2023.111121.\n\n\nLaurent, Florian, Manuel Schneider, Christian Scheller, Jeremy Watson, Jiaoyang Li, Zhe Chen, Yi Zheng, et al. 2021. “Flatland Competition 2020: MAPF and MARL for Efficient Train Coordination on a Grid World.” March 30, 2021. http://arxiv.org/abs/2103.16511.\n\n\nLi, Jiaoyang, Zhe Chen, Yi Zheng, Shao-Hung Chan, Daniel Harabor, Peter J. Stuckey, Hang Ma, and Sven Koenig. 2021. “Scalable Rail Planning and Replanning: Winning the 2020 Flatland Challenge.” Proceedings of the International Conference on Automated Planning and Scheduling 31 (May): 477–85. https://ojs.aaai.org/index.php/ICAPS/article/view/15994.\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489.\n\n\nStern, Roni, Nathan Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne Walker, Jiaoyang Li, et al. 2019. “Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks.” Proceedings of the International Symposium on Combinatorial Search 10 (1, 1): 151–58. https://doi.org/10.1609/socs.v10i1.18510.\n\n\nWang, Shiyue, Haozheng Xu, Yuhan Zhang, Jingran Lin, Changhong Lu, Xiangfeng Wang, and Wenhao Li. 2025. “Where Paths Collide: A Comprehensive Survey of Classic and Learning-Based Multi-Agent Pathfinding.” May 25, 2025. https://doi.org/10.48550/arXiv.2505.19219."
+    "section": "Leçons à retenir",
+    "text": "Leçons à retenir\n\n🚦 Les maths peuvent servir à décrire et résoudre des problèmes d’optimisation en transport.\n😱 Certains sont faciles (plus court chemin), d’autres difficiles (Flatland).\n📊 Simplifier et généraliser le problème permet des approches générales et comparables.\n🫠 En pratique, tout est toujours plus compliqué (c’est ça qui est fun)."
   },
   {
     "objectID": "index.html#des-questions",
@@ -271,5 +243,12 @@
     "title": "Des mathématiques pour faire rouler les trains",
     "section": "Des questions ?",
     "text": "Des questions ?\nMon site web pour plus d’infos : https://gdalle.github.io/"
+  },
+  {
+    "objectID": "index.html#références",
+    "href": "index.html#références",
+    "title": "Des mathématiques pour faire rouler les trains",
+    "section": "Références",
+    "text": "Références\n\n\nAbbe, Emmanuel. 2018. “Community Detection and Stochastic Block Models: Recent Developments.” Journal of Machine Learning Research 18 (177): 1–86. http://jmlr.org/papers/v18/16-480.html.\n\n\nBast, Hannah, Daniel Delling, Andrew Goldberg, Matthias Müller-Hannemann, Thomas Pajor, Peter Sanders, Dorothea Wagner, and Renato F. Werneck. 2016. “Route Planning in Transportation Networks.” In Algorithm Engineering: Selected Results and Surveys, edited by Lasse Kliemann and Peter Sanders, 19–80. Lecture Notes in Computer Science. Cham: Springer International Publishing. https://doi.org/10.1007/978-3-319-49487-6_2.\n\n\nGao, Jianqi, Yanjie Li, Xinyi Li, Kejian Yan, Ke Lin, and Xinyu Wu. 2024. “A Review of Graph-Based Multi-Agent Pathfinding Solvers: From Classical to Beyond Classical.” Knowledge-Based Systems 283 (January): 111121. https://doi.org/10.1016/j.knosys.2023.111121.\n\n\nLaurent, Florian, Manuel Schneider, Christian Scheller, Jeremy Watson, Jiaoyang Li, Zhe Chen, Yi Zheng, et al. 2021. “Flatland Competition 2020: MAPF and MARL for Efficient Train Coordination on a Grid World.” March 30, 2021. http://arxiv.org/abs/2103.16511.\n\n\nLi, Jiaoyang, Zhe Chen, Yi Zheng, Shao-Hung Chan, Daniel Harabor, Peter J. Stuckey, Hang Ma, and Sven Koenig. 2021. “Scalable Rail Planning and Replanning: Winning the 2020 Flatland Challenge.” Proceedings of the International Conference on Automated Planning and Scheduling 31 (May): 477–85. https://ojs.aaai.org/index.php/ICAPS/article/view/15994.\n\n\nSchlechte, Thomas. 2012. “Railway Track Allocation: Models and Algorithms.” PhD thesis, Technische Universität Berlin. https://opus4.kobv.de/opus4-zib/frontdoor/index/index/docId/1489.\n\n\nStern, Roni, Nathan Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne Walker, Jiaoyang Li, et al. 2019. “Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks.” Proceedings of the International Symposium on Combinatorial Search 10 (1, 1): 151–58. https://doi.org/10.1609/socs.v10i1.18510.\n\n\nWang, Shiyue, Haozheng Xu, Yuhan Zhang, Jingran Lin, Changhong Lu, Xiangfeng Wang, and Wenhao Li. 2025. “Where Paths Collide: A Comprehensive Survey of Classic and Learning-Based Multi-Agent Pathfinding.” May 25, 2025. https://doi.org/10.48550/arXiv.2505.19219."
   }
 ]

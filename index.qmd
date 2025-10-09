@@ -135,14 +135,14 @@ Un graphe $G = (N, A)$ est composé
 ```{julia}
 using Graphs, CairoMakie, GraphMakie, NetworkLayout, StableRNGs
 
-function plot_graph(g, w=nothing; layout=Spring(), margin=(0.1, 0.1, 0.1, 0.1))
+function plot_graph(g, w=nothing; layout=Spring(), margin=(0.1, 0.1, 0.1, 0.1), kwargs...)
     pos = layout(g)
     x0, x1 = minimum(map(x -> x[1], pos)), maximum(map(x -> x[1], pos))
     y0, y1 = minimum(map(x -> x[2], pos)), maximum(map(x -> x[2], pos))
     elabels = isnothing(w) ? nothing : [string(w[src(e), dst(e)]) for e in edges(g)]
     fig = Figure()
     ax = Axis(fig[1, 1])
-    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), elabels, ilabels_fontsize=50, elabels_fontsize=40, arrow_shift=:end, arrow_size=isnothing(w) * 40)
+    pl = graphplot!(ax, g; layout=_ -> pos, ilabels=collect(1:nv(g)), elabels, ilabels_fontsize=50, elabels_fontsize=40, arrow_size=isnothing(w) * 40, kwargs...)
     xlims!(ax, x0 - margin[4] * (x1 - x0), x1 + margin[2] * (x1 - x0))
     ylims!(ax, y0 - margin[1] * (y1 - y0), y1 + margin[3] * (y1 - y0))
     hidedecorations!(ax)
@@ -327,21 +327,21 @@ Heures d'arrivée et de départ ? Déterminées par les contraintes.
 - Chaque voyage part de sa station de départ : $n_v^1 = s_v^d$
 - Chaque voyage arrive à sa station d'arrivée : $n_v^T = s_v^a$
 - Chaque voyage attend son heure de départ : $n_v^1 = n_v^2 = \dots = n_v^{h_v^d}$
-- Deux voyages n'occupent jamais le même noeud en même temps : $n_v^t \neq n_{v'}^t$
+- Deux voyages n'occupent pas le même noeud en même temps : $n_v^t \neq n_{v'}^t$
 
 ## Fonction objectif
 
 Retard d'un voyage :
-$$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \min \{t : n_v^t = s_v^a\} - h_v^a$$
+$$r_v = \max(0, \delta_v) \quad \text{où} \quad \delta_v = \text{ heure d'arrivée réelle } - h_v^a$$
 
-"Coût" à minimiser : plusieurs choix possibles
+"Coût" à minimiser : plusieurs choix possibles pour agréger les voyages
 
 :::: {.columns}
 ::: {.column}
-- Retard total $\sum_v r_v$
+- Retard total $r_1 + r_2 + \dots + r_V$
 :::
 ::: {.column}
-- Retard maximal $\max_v r_v$
+- Plus grand retard $\max (r_1, r_2, \dots, r_V)$
 :::
 ::::
 
@@ -413,7 +413,7 @@ Supposons que chacune prend $1$ nanoseconde.
 ::: {.column width="35%"}
 On sait résoudre des problèmes exponentiels, mais pas toujours exactement.
 
-Benchmark = instances de test standardisées pour évaluer les différentes approches.
+Benchmark = scénario standardisé pour évaluer les différentes approches.
 :::
 ::: {.column width="65%"}
 ![Différentes méthodes de résolution pour Flatland [@laurentFlatlandCompetition20202021]](img/flatland/flatland_score_plot_v3.png){.lightbox}
@@ -608,7 +608,7 @@ Idéalement, on voudrait trouver les itinéraires pour chaque agent en parallèl
 
 Plus les agents sont nombreux, plus on dévie du chemin optimal.
 
-[Lien de visualisation](https://tracker.pathfinding.ai/instances?mapId=63761f265d814f08ecdbf3c2&reason=unknown&scenId=63761f275d814f08ecdbfa03&instanceId=637636c25d814f08ecf24266&solutionId=64113b7aa77d79716569426c&source=submitted).
+[Lien de visualisation](https://tracker.pathfinding.ai/instances?mapId=63761f255d814f08ecdbf3a3&reason=unknown&scenId=63761f265d814f08ecdbf3f5&instanceId=63762a215d814f08ece655a0&solutionId=6411363aa77d7971656050c2&source=submitted)
 
 ## Recherche arborescente : c'est trop long !
 
@@ -660,51 +660,20 @@ Ne trouve pas forcément de solution (optimale)
 
 :::::
 
-## Recherche à voisinages larges
+# Conclusion
 
-Quand on a trouvé une solution, on peut l'améliorer itérativement :
-
-- Choisir un ensemble d'agents
-- Oublier leurs chemins
-- Reconstruire de nouveaux chemins en gardant les autres fixés
-- Voir si on a trouvé mieux
-
-# Pour aller plus loin
-
-## Représentation des graphes en mémoire
-
-Plusieurs formats possibles :
-
-- Matrice d'adjacence
-- Liste d'adjacence
-- Liste d'arêtes
-
-[Lien de visualisation](https://visualgo.net/en/graphds)
-
-## Complexité théorique ou pratique
-
-La complexité théorique ne dit pas tout.
-
-L'efficacité d'un algorithme dépend aussi 
-
-- de l'ordinateur et du processeur utilisé, CPU ou GPU
-- du langage de programmation choisi
-- des structures de données
-- du coût d'accès à la mémoire
-- de la taille des caches
-
-## Conclusion
+## Leçons à retenir
 
 - :vertical_traffic_light: Les maths peuvent servir à décrire et résoudre des problèmes d'optimisation en transport.
 - :scream: Certains sont faciles (plus court chemin), d'autres difficiles (Flatland).
 - :bar_chart: Simplifier et généraliser le problème permet des approches générales et comparables.
 - :melting_face: En pratique, tout est toujours plus compliqué (c'est ça qui est fun).
 
+## Des questions ?
+
+Mon site web pour plus d'infos : <https://gdalle.github.io/>
+
 ## Références
 
 ::: {#refs}
 :::
-
-## Des questions ?
-
-Mon site web pour plus d'infos : <https://gdalle.github.io/>
